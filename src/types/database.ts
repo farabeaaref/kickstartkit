@@ -292,6 +292,7 @@ export type Database = {
       source_documents: {
         Row: {
           created_at: string;
+          extraction_error: string | null;
           extraction_status: string;
           file_name: string | null;
           file_path: string | null;
@@ -303,6 +304,7 @@ export type Database = {
         ComputedFields: never;
         Insert: {
           created_at?: string;
+          extraction_error?: string | null;
           extraction_status?: string;
           file_name?: string | null;
           file_path?: string | null;
@@ -313,6 +315,7 @@ export type Database = {
         };
         Update: {
           created_at?: string;
+          extraction_error?: string | null;
           extraction_status?: string;
           file_name?: string | null;
           file_path?: string | null;

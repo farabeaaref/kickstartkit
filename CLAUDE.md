@@ -27,6 +27,7 @@ PostHog, Sentry.
 | RLS / database tests (pgTAP)  | `npm run test:db`                                                                                         |
 | E2E tests                     | `npm run test:e2e` (needs local Supabase + `.env.local`)                                                  |
 | All fast checks               | `npm run check`                                                                                           |
+| Regenerate test fixtures      | `node scripts/generate-fixtures.mjs` (writes `tests/fixtures/`)                                           |
 
 After every milestone: `npm run check && npm run test:db && npm run build && npm run test:e2e`.
 
@@ -69,3 +70,8 @@ After every milestone: `npm run check && npm run test:db && npm run build && npm
 - Project statuses: `draft`, `awaiting_client`, `in_progress`, `ready`, `archived`.
 - One active (non-revoked) client link per project, enforced by a partial unique index.
 - Client submissions, reminders and subscriptions are server-written only (no `authenticated` writes).
+- Source document uploads go browser → Storage via a one-time signed upload URL (avoids Vercel's 4.5 MB
+  body limit), then `processDocument` downloads the file, verifies its real type from magic bytes
+  (`lib/documents/extract.ts`), and extracts text. Files failing the content check are deleted.
+- Source files: PDF/DOCX/TXT, max 10 MB, max 20 documents per project. Stored text is capped at 200k chars.
+- Failed extractions store a user-facing reason in `source_documents.extraction_error`.
