@@ -11,6 +11,9 @@ import { listProjects } from "@/lib/projects/queries";
 
 export const metadata: Metadata = { title: "Dashboard" };
 
+// Per-user data on every request: navigations stream behind loading.tsx rather than being instant.
+export const instant = false;
+
 export default async function DashboardPage() {
   const [user, projects] = await Promise.all([requireUser(), listProjects()]);
   const firstName = user.fullName?.split(" ")[0];

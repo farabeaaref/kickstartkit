@@ -7,6 +7,9 @@ import { requireUser } from "@/lib/auth/session";
 
 export const metadata: Metadata = { title: "New project" };
 
+// Per-user data on every request: navigations stream behind loading.tsx rather than being instant.
+export const instant = false;
+
 export default async function NewProjectPage() {
   await requireUser();
 

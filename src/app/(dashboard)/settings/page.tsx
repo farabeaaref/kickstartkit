@@ -9,6 +9,9 @@ import { initials } from "@/lib/utils";
 
 export const metadata: Metadata = { title: "Settings" };
 
+// Per-user data on every request: navigations stream behind loading.tsx rather than being instant.
+export const instant = false;
+
 export default async function SettingsPage() {
   const user = await requireUser();
 

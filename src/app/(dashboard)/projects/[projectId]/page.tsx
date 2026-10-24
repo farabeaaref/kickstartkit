@@ -13,6 +13,9 @@ import { formatDate, formatRelativeTime } from "@/lib/utils";
 
 export const metadata: Metadata = { title: "Project" };
 
+// Per-user data on every request: navigations stream behind loading.tsx rather than being instant.
+export const instant = false;
+
 export default async function ProjectPage({ params }: PageProps<"/projects/[projectId]">) {
   const { projectId } = await params;
   const project = await getProject(projectId);
